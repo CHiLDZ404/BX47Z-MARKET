@@ -1,1 +1,507 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BX47Z-MARKET | AI Cloud & Professional Digital Marketplace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
+    <!-- POP-UP SAMBUTAN AWAL -->
+    <div id="welcome-modal" class="modal-overlay active">
+        <div class="modal-card animate-pop">
+            <div class="modal-header">
+                <div class="welcome-modal-title">
+                    <i class="fa-solid fa-shop modal-icon"></i>
+                    <div>
+                        <h3>BX47Z Digital Marketplace</h3>
+                        <small>Cloud Hosting, Automation & AI Engine</small>
+                    </div>
+                </div>
+                <button class="close-btn" type="button" onclick="closeModal('welcome-modal')" aria-label="Tutup">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <p class="welcome-intro-text">
+                <div class="welcome-auth-options">
+                    <p class="auth-prompt-label"><i class="fa-solid fa-user-shield"></i> Silakan Masuk / Daftar untuk Akses Website.</p>
+                    
+                    <div class="welcome-btn-group">
+                        <button class="btn btn-primary btn-block" type="button" onclick="switchWelcomeToAuth('signin-modal')">
+                            <i class="fa-solid fa-right-to-bracket"></i> Masuk Akun (Sign-In)
+                        </button>
+                        <button class="btn btn-outline btn-block" type="button" onclick="switchWelcomeToAuth('signup-modal')">
+                            <i class="fa-solid fa-user-plus"></i> Daftar Akun Baru (Sign-Up)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer text-center">
+                <button class="btn btn-ghost btn-block" type="button" onclick="closeModal('welcome-modal')">
+                    <i class="fa-solid fa-clock-rotate-left"></i> Lihat Nanti (Lanjutkan Sebagai Tamu)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="brand-logo">
+                <i class="fa-solid fa-cube"></i>
+                <span>BX47Z-MARKET</span>
+            </a>
+
+            <div class="nav-actions">
+                <!-- FITUR REAL-TIME WAKTU PERANGKAT -->
+                <div class="realtime-clock-box">
+                    <i class="fa-solid fa-clock"></i>
+                    <span id="live-device-clock">00:00:00 WIB</span>
+                </div>
+
+                <button id="cart-nav-btn" class="cart-btn" type="button" onclick="openCartModal()" title="Keranjang Belanja">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-badge-count" class="cart-badge">0</span>
+                </button>
+                <button id="theme-toggle" class="theme-btn" type="button" onclick="toggleTheme()" title="Ubah Tema">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <div id="auth-buttons-container"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="container hero-container">
+            <div class="hero-text">
+                <span class="badge badge-sky"><i class="fa-solid fa-sparkles"></i> Marketplace Pro & Auto Gemini AI Engine</span>
+                <h1>Marketplace Cloud Server Game & Automasi Digital</h1>
+                <p>Pilih paket hosting, sewa bot, atau buat racikan kustom melalui Kalkulator Server. Kumpulkan di Keranjang Belanja dan buat Ticket Pemesanan Otomatis secara instan!</p>
+                <div class="hero-cta">
+                    <a href="#marketplace" class="btn btn-primary"><i class="fa-solid fa-store"></i> Jelajahi Marketplace</a>
+                    <a href="#calculator-section" class="btn btn-outline"><i class="fa-solid fa-calculator"></i> Kalkulator Server</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marketplace Catalog Section -->
+    <section id="marketplace" class="services-section">
+        <div class="container">
+            <div class="section-title text-center">
+                <span class="sub-title">Marketplace Katalog</span>
+                <h2>Produk & Layanan Digital Terlengkap</h2>
+                <p>Klik "Tambah ke Keranjang" pada produk yang ingin Anda beli.</p>
+            </div>
+
+            <!-- Panel Pterodactyl Category -->
+            <div class="service-category">
+                <div class="category-header">
+                    <i class="fa-solid fa-server"></i>
+                    <div>
+                        <h3>Panel Pterodactyl High Performance</h3>
+                        <p>Garansi Uptime & Replace 100%. Bebas kustom username & password.</p>
+                    </div>
+                </div>
+                <div class="price-grid" id="panel-pricing-grid"></div>
+            </div>
+
+            <!-- Sewa Bot & Script Grid -->
+            <div class="two-column-grid">
+                <div class="service-category">
+                    <div class="category-header">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <div>
+                            <h3>Sewa Bot WhatsApp</h3>
+                            <p>Otomatisasi 24 jam nonstop, fitur lengkap, dan stabil.</p>
+                        </div>
+                    </div>
+                    <div class="price-list-cards" id="bot-pricing-grid"></div>
+                </div>
+
+                <div class="service-category">
+                    <div class="category-header">
+                        <i class="fa-solid fa-code"></i>
+                        <div>
+                            <h3>Jasa Script Bot WhatsApp</h3>
+                            <p>Pengembangan, perbaikan error, dan pembuatan script kustom.</p>
+                        </div>
+                    </div>
+                    <div class="price-list-cards" id="script-pricing-grid"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FITUR KALKULATOR KUSTOM TERPISAH -->
+    <section id="calculator-section" class="calculator-section">
+        <div class="container">
+            <div class="section-title text-center">
+                <span class="sub-title">Fitur Modul Terpisah</span>
+                <h2>Kalkulator Estimasi Server & Bundling</h2>
+                <p>Kombinasikan spesifikasi server, durasi bot, dan jasa script sesuai kebutuhan Anda lalu masukkan hasil racikan ini ke Keranjang Belanja!</p>
+            </div>
+            <div class="calculator-card">
+                <div class="two-column-grid">
+                    <div class="calc-inputs">
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-microchip"></i> Pilih Kapasitas RAM Panel</label>
+                            <select id="calc-ram" onchange="calculateCustomEstimate()">
+                                <option value="0">Tanpa Panel</option>
+                                <option value="2000">1 GB RAM - Rp2.000</option>
+                                <option value="3000">2 GB RAM - Rp3.000</option>
+                                <option value="5000">5 GB RAM - Rp5.000</option>
+                                <option value="10000">10 GB RAM - Rp10.000</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fa-brands fa-whatsapp"></i> Durasi Sewa Bot</label>
+                            <select id="calc-bot" onchange="calculateCustomEstimate()">
+                                <option value="0">Tanpa Bot</option>
+                                <option value="2000">Sewa Bot 1 Hari - Rp2.000</option>
+                                <option value="10000">Sewa Bot 1 Minggu - Rp10.000</option>
+                                <option value="20000">Sewa Bot Permanen - Rp20.000</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-code"></i> Layanan Jasa Script</label>
+                            <select id="calc-script" onchange="calculateCustomEstimate()">
+                                <option value="0">Tanpa Jasa Script</option>
+                                <option value="10000">Jasa Rename / Fix Error - Rp10.000</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="calc-result-box">
+                        <h4>Ringkasan Racikan Server</h4>
+                        <div class="calc-row">
+                            <span>Subtotal Biaya Racikan:</span>
+                            <span id="calc-subtotal">Rp0</span>
+                        </div>
+                        <div class="calc-row">
+                            <span>Masa Garansi Layanan:</span>
+                            <span class="text-success">Garansi Penuh 30 Hari</span>
+                        </div>
+                        <div class="calc-row total-calc-row">
+                            <span>Total Estimasi Racikan:</span>
+                            <span id="calc-total" class="text-primary-bold">Rp0</span>
+                        </div>
+                        <button class="btn btn-primary btn-block margin-top-sm" type="button" onclick="addCalculatorToCart()">
+                            <i class="fa-solid fa-cart-plus"></i> Tambah Racikan ke Keranjang
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Server Status Section -->
+    <section id="server-status" class="status-section">
+        <div class="container">
+            <div class="section-title text-center">
+                <span class="sub-title">Monitoring Live</span>
+                <h2>Status Operational Infrastructure</h2>
+            </div>
+            <div class="status-grid">
+                <div class="status-card">
+                    <div class="status-head">
+                        <strong>Node SG-Pterodactyl-01</strong>
+                        <span class="badge-status status-online"><i class="fa-solid fa-circle"></i> Operational</span>
+                    </div>
+                    <p>Lokasi: Singapura (SG) | Uptime: 99.98%</p>
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 25%;"></div></div>
+                </div>
+                <div class="status-card">
+                    <div class="status-head">
+                        <strong>WhatsApp Engine Gateway</strong>
+                        <span class="badge-status status-online"><i class="fa-solid fa-circle"></i> Operational</span>
+                    </div>
+                    <p>Status: Connected | Latency: 42ms</p>
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 18%;"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gemini AI Customer Service & Ticket Order Section -->
+    <section id="ai-cs" class="ai-cs-section">
+        <div class="container">
+            <div class="two-column-grid align-center">
+                <!-- Gemini AI CS (Smart Auto Response) -->
+                <div class="ai-box-card">
+                    <div class="ai-header">
+                        <i class="fa-solid fa-brain ai-badge-icon"></i>
+                        <div>
+                            <h3>BX47Z Gemini AI CS Pro</h3>
+                            <span class="status-indicator"><span class="pulse"></span> Otomatis Cerdas 24/7</span>
+                        </div>
+                    </div>
+
+                    <div class="chat-display" id="chat-display">
+                        <div class="chat-message bot">
+                            <div class="msg-avatar"><i class="fa-solid fa-robot"></i></div>
+                            <div class="msg-content">
+                                Halo! Saya <strong>BX47Z Gemini AI CS Pro</strong>. Saya siap menjawab pertanyaan seputar produk marketplace, pemesanan, bantuan coding, atau konsultasi server secara instan!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chat-input" placeholder="Tanyakan apa saja kepada Gemini AI..." onkeypress="handleChatKeyPress(event)">
+                        <button type="button" onclick="sendChatMessage()" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
+                    </div>
+                </div>
+
+                <!-- Ticket Order Display -->
+                <div class="ticket-box-card" id="ticket">
+                    <div class="ticket-header">
+                        <i class="fa-solid fa-ticket ticket-badge-icon"></i>
+                        <div>
+                            <h3>Ticket Pemesanan Saya</h3>
+                            <p>Pantau tiket hasil checkout keranjang belanja Anda.</p>
+                        </div>
+                    </div>
+
+                    <div id="ticket-auth-warning" class="alert-box alert-warning">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span>Anda harus <a href="#" onclick="openModal('signup-modal')">Daftar (Sign-Up)</a> atau <a href="#" onclick="openModal('signin-modal')">Masuk (Sign-In)</a> terlebih dahulu untuk Checkout & Mengelola Tiket.</span>
+                    </div>
+
+                    <div id="active-ticket-display" class="active-ticket-card"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <a href="#" class="brand-logo">
+                    <i class="fa-solid fa-cube"></i>
+                    <span>BX47Z-MARKET</span>
+                </a>
+                <p>Digital Marketplace terpercaya untuk Pterodactyl Panel, WhatsApp Automation, dan Jasa Scripting.</p>
+            </div>
+            <div class="footer-contact">
+                <h4>Hubungi CS Admin</h4>
+                <p><i class="fa-brands fa-whatsapp"></i> WhatsApp CS: <a href="https://wa.me/6287890768114" target="_blank">087890768114</a></p>
+            </div>
+            <div class="footer-admin">
+                <h4>Akses Staff / Owner</h4>
+                <button class="btn btn-outline-sm" type="button" onclick="openModal('admin-login-modal')"><i class="fa-solid fa-user-shield"></i> Portal Admin Pro</button>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 BX47Z-MARKETPLACE. All Rights Reserved. Developed by <strong>Owner BX47Z</strong>.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL KERANJANG BELANJA & CHECKOUT -->
+    <div id="cart-modal" class="modal-overlay">
+        <div class="modal-card modal-large">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-cart-shopping"></i> Keranjang Belanja Saya</h3>
+                <button class="close-btn" type="button" onclick="closeModal('cart-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="cart-items-list" class="cart-items-container"></div>
+
+                <div class="cart-summary-section">
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-ticket-simple"></i> Masukkan Kode Voucher Diskon (Opsional)</label>
+                        <div class="voucher-input-group">
+                            <input type="text" id="cart-voucher-input" placeholder="Contoh: BXDISKON10" style="text-transform: uppercase;">
+                            <button type="button" class="btn btn-outline-sm" onclick="applyCartVoucher()"><i class="fa-solid fa-check"></i> Gunakan</button>
+                        </div>
+                        <small id="cart-voucher-status" class="status-msg"></small>
+                    </div>
+
+                    <div class="price-summary-box">
+                        <div class="price-row">
+                            <span>Subtotal Belanja:</span>
+                            <span id="cart-subtotal-price">Rp0</span>
+                        </div>
+                        <div class="price-row discount-row hidden" id="cart-discount-container">
+                            <span>Potongan Voucher:</span>
+                            <span id="cart-discount-amount" class="text-success">-Rp0</span>
+                        </div>
+                        <div class="price-row total-row">
+                            <span>Total Pembayaran Akhir:</span>
+                            <span id="cart-final-price" class="text-primary-bold">Rp0</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-comment-dots"></i> Catatan Pesanan / Request Username Server (Opsional)</label>
+                        <textarea id="cart-checkout-notes" placeholder="Contoh: Username Panel: myuser, Password: mypassword"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-block" onclick="processCartCheckout()">
+                    <i class="fa-solid fa-credit-card"></i> Checkout & Buat Ticket Pemesanan Otomatis
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DASHBOARD ADMIN PRO MODAL -->
+    <div id="admin-dashboard-modal" class="modal-overlay">
+        <div class="modal-card modal-large">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-user-shield"></i> Control Panel Owner / Admin Pro</h3>
+                <button class="close-btn" type="button" onclick="closeModal('admin-dashboard-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="admin-tabs-nav">
+                    <button class="admin-tab-btn active" onclick="switchAdminTab('tickets-admin-tab')"><i class="fa-solid fa-ticket"></i> Kelola Tiket Order</button>
+                    <button class="admin-tab-btn" onclick="switchAdminTab('products-admin-tab')"><i class="fa-solid fa-box"></i> Tambah/Kelola Produk</button>
+                    <button class="admin-tab-btn" onclick="switchAdminTab('users-admin-tab')"><i class="fa-solid fa-users"></i> Data Pengguna</button>
+                </div>
+
+                <!-- Tab 1: Manajemen Tiket Order -->
+                <div id="tickets-admin-tab" class="admin-tab-content active">
+                    <h4>Daftar Tiket Pemesanan Masuk</h4>
+                    <div id="admin-tickets-list" class="admin-list-box"></div>
+                </div>
+
+                <!-- Tab 2: Manajemen Produk Katalog -->
+                <div id="products-admin-tab" class="admin-tab-content">
+                    <h4>Tambah Produk Baru Ke Marketplace</h4>
+                    <form onsubmit="handleAddNewProduct(event)" class="margin-bottom-md">
+                        <div class="two-column-grid">
+                            <div class="form-group">
+                                <label>Kategori Produk</label>
+                                <select id="admin-prod-cat" required>
+                                    <option value="panel">Panel Pterodactyl</option>
+                                    <option value="bot">Sewa Bot WhatsApp</option>
+                                    <option value="script">Jasa Script Bot</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Nama Produk / Paket</label>
+                                <input type="text" id="admin-prod-title" placeholder="Contoh: Panel 8GB RAM" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Harga (Nominal Rp)</label>
+                            <input type="number" id="admin-prod-price" placeholder="Contoh: 8000" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Tambahkan Produk Baru</button>
+                    </form>
+                    <hr style="margin: 15px 0; border-color: var(--border-color);">
+                    <h4>Kelola Produk Terpasang</h4>
+                    <div id="admin-products-list" class="admin-list-box"></div>
+                </div>
+
+                <!-- Tab 3: Database Pengguna Terdaftar -->
+                <div id="users-admin-tab" class="admin-tab-content">
+                    <h4>Daftar Pengguna Terdaftar</h4>
+                    <div id="admin-users-list" class="admin-list-box"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL SIGN-UP -->
+    <div id="signup-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-user-plus"></i> Pendaftaran Akun (Sign-Up)</h3>
+                <button class="close-btn" type="button" onclick="closeModal('signup-modal')">&times;</button>
+            </div>
+            <form onsubmit="handleSignUp(event)">
+                <div class="modal-body">
+                    <div class="form-group"><label>Nama Lengkap</label><input type="text" id="signup-name" placeholder="Masukkan nama Anda" required></div>
+                    <div class="form-group"><label>Nomor WhatsApp</label><input type="tel" id="signup-phone" placeholder="Contoh: 087890768114" required></div>
+                    <div class="form-group"><label>Pembuatan Sandi</label><input type="password" id="signup-password" placeholder="Buat kata sandi" required></div>
+                    <div class="form-group"><label>Konfirmasi Sandi</label><input type="password" id="signup-confirm-password" placeholder="Ulangi kata sandi" required></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-block">Daftar Akun Marketplace</button>
+                    <p class="auth-switch-text">Sudah punya akun? <a href="#" onclick="switchModal('signup-modal', 'signin-modal')">Masuk (Sign-In)</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL SIGN-IN -->
+    <div id="signin-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-right-to-bracket"></i> Masuk Akun (Sign-In)</h3>
+                <button class="close-btn" type="button" onclick="closeModal('signin-modal')">&times;</button>
+            </div>
+            <form onsubmit="handleSignIn(event)">
+                <div class="modal-body">
+                    <div class="form-group"><label>Nomor WhatsApp</label><input type="tel" id="signin-phone" placeholder="Masukkan No. WA" required></div>
+                    <div class="form-group"><label>Password</label><input type="password" id="signin-password" placeholder="Masukkan password" required></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                    <p class="auth-switch-text">Belum memiliki akun? <a href="#" onclick="switchModal('signin-modal', 'signup-modal')">Daftar Akun Baru</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL PROFILE -->
+    <div id="profile-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-user-gear"></i> Pengaturan Akun & Profile</h3>
+                <button class="close-btn" type="button" onclick="closeModal('profile-modal')">&times;</button>
+            </div>
+            <form onsubmit="handleSaveProfile(event)">
+                <div class="modal-body">
+                    <div class="profile-preview-box text-center">
+                        <img id="profile-img-preview" src="https://via.placeholder.com/100" alt="Foto Profil" class="profile-avatar">
+                        <div class="form-group margin-top-sm">
+                            <label class="btn btn-outline-sm btn-file">
+                                <i class="fa-solid fa-camera"></i> Ubah Foto Profil
+                                <input type="file" id="profile-photo-input" accept="image/png, image/jpeg" onchange="previewProfilePhoto(event)" hidden>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group"><label>Nama Lengkap</label><input type="text" id="profile-name" required></div>
+                    <div class="form-group"><label>Nomor WhatsApp</label><input type="tel" id="profile-phone" required></div>
+                    <div class="form-group"><label>Nama Store (Opsional)</label><input type="text" id="profile-store-name"></div>
+                    <div class="form-group"><label>Bio Store</label><textarea id="profile-bio"></textarea></div>
+                    <div class="form-group"><label>Password Baru</label><input type="password" id="profile-new-password"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-block">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL ADMIN LOGIN -->
+    <div id="admin-login-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-lock"></i> Portal Admin / Owner</h3>
+                <button class="close-btn" type="button" onclick="closeModal('admin-login-modal')">&times;</button>
+            </div>
+            <form onsubmit="handleAdminSignIn(event)">
+                <div class="modal-body">
+                    <div class="form-group"><label>Username Admin</label><input type="text" id="admin-username" required></div>
+                    <div class="form-group"><label>Password Admin</label><input type="password" id="admin-password" required></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-block">Masuk Sebagai Admin</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast-container" class="toast-container"></div>
+    <script src="js/app.js"></script>
+</body>
+</html>
